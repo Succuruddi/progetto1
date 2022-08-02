@@ -4,31 +4,33 @@
   "info": {
     "singularName": "pub",
     "pluralName": "pubs",
-    "displayName": "Pub"
+    "displayName": "Pub",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
-      "type": "string"
-    },
     "address": {
       "type": "string"
     },
-    "pictures": {
+    "picture": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "avgPrice": {
       "type": "decimal"
+    },
+    "name": {
+      "type": "string"
     }
   }
 }

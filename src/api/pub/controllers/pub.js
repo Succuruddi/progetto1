@@ -1,9 +1,28 @@
 'use strict';
-
 /**
- *  pub controller
- */
+* restaurant controller
+*/
+const {
+createCoreController
+} = require('@strapi/strapi').factories;
+module.exports = createCoreController('api:pub.pub', ({
+strapi
+}) => ({
+//I think this is deprecated
+async find(ctx) {
+let result = await strapi.entityService.findMany('api:pub.pub', {
+filters: {
+$and: [{
+hide: false,
+}],
+},
 
-const { createCoreController } = require('@strapi/strapi').factories;
+populate: ['id', 'name', 'address', 'picture', 'avgPrice']
+});
 
-module.exports = createCoreController('api::pub.pub');
+return pub;
+
+//return result;
+},
+}
+));
