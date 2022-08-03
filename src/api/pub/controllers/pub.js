@@ -5,22 +5,18 @@
 const {
 createCoreController
 } = require('@strapi/strapi').factories;
-module.exports = createCoreController('api:pub.pub', ({
+module.exports = createCoreController('api::pub.pub', ({
 strapi
 }) => ({
 //I think this is deprecated
 async find(ctx) {
-let result = await strapi.entityService.findMany('api:pub.pub', {
-filters: {
-$and: [{
-hide: false,
-}],
-},
+let result = await strapi.entityService.findMany('api::pub.pub', {
 
-populate: ['id', 'name', 'address', 'picture', 'avgPrice']
+
+populate: ['picture']
 });
 
-return pub;
+return result;
 
 //return result;
 },
