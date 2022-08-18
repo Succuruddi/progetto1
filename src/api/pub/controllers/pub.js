@@ -20,5 +20,14 @@ return result;
 
 //return result;
 },
+
+
+ async createTweet(ctx){
+    let htmlresult=strapi.service('api::pub.pub').createTweet("Testo");
+    return "OK";
+ }
+
+ 
+ 
 }
 ));
