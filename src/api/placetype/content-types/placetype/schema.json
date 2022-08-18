@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "placetypes",
+  "info": {
+    "singularName": "placetype",
+    "pluralName": "placetypes",
+    "displayName": "placetype"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "places": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::place.place",
+      "mappedBy": "placetypes"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "promoters",
+  "info": {
+    "singularName": "promoter",
+    "pluralName": "promoters",
+    "displayName": "promoter",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "referralCode": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "events": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::event.event",
+      "mappedBy": "promoters"
+    }
+  }
+}

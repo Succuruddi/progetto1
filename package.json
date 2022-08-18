@@ -9,12 +9,17 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
-    "@strapi/strapi": "4.3.0",
-    "@strapi/plugin-users-permissions": "4.3.0",
     "@strapi/plugin-i18n": "4.3.0",
-    "better-sqlite3": "7.4.6"
+    "@strapi/plugin-users-permissions": "4.3.0",
+    "@strapi/strapi": "4.3.0",
+    "axios": "^0.27.2",
+    "better-sqlite3": "7.4.6",
+    "cron": "^2.1.0",
+    "node-cron": "^3.0.0",
+    "oauth-1.0a": "^2.2.6",
+    "slugify": "^1.6.5",
+    "twitter-api-sdk": "^1.1.0"
   },
   "author": {
     "name": "A Strapi developer"

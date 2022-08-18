@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "appstates",
+  "info": {
+    "singularName": "appstate",
+    "pluralName": "appstates",
+    "displayName": "appstate"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "appName": {
+      "type": "string"
+    },
+    "appVersion": {
+      "type": "string",
+      "required": true
+    },
+    "accessToken": {
+      "type": "uid",
+      "required": true
+    }
+  }
+}
