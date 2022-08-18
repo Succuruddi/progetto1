@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "locationmenus",
+  "info": {
+    "singularName": "locationmenu",
+    "pluralName": "locationmenus",
+    "displayName": "Locationmenu",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "menu": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "menuOrder": {
+      "type": "integer",
+      "required": true,
+      "default": 99
+    },
+    "bookingLink": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

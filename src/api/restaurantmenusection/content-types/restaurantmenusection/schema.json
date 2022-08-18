@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "restaurantmenusections",
+  "info": {
+    "singularName": "restaurantmenusection",
+    "pluralName": "restaurantmenusections",
+    "displayName": "restaurantmenusection",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "restaurantmenusectiontype": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::restaurantmenusectiontype.restaurantmenusectiontype"
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::restaurant.restaurant"
+    },
+    "foodanddrinks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::foodanddrink.foodanddrink"
+    },
+    "restaurantmenu": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::restaurantmenu.restaurantmenu",
+      "inversedBy": "restaurantmenusections"
+    },
+    "description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    }
+  }
+}

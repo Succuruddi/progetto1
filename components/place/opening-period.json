@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_place_opening_periods",
+  "info": {
+    "displayName": "openingPeriod"
+  },
+  "options": {},
+  "attributes": {
+    "day": {
+      "type": "integer",
+      "required": true
+    },
+    "time": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

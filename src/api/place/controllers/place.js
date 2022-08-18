@@ -277,6 +277,32 @@ module.exports = createCoreController('api::place.place', ({
     return "OK";
   },
 
+  async fixServiceLevel(ctx) {
+    let pagination = 200;
+    let start = 0;
+    while (start < pagination) {
+      let currentRestaurants = await strapi.entityService.findMany('api::restaurant.restaurant', {
+        start: start,
+        limit: pagination
+      });
+      for (let i = 0; i < currentRestaurants.length; i++) {
+        await strapi.entityService.update('api::restaurant.restaurant', currentRestaurants[i].id, {
+          data: {
+            serviceLevel: 0,
+          },
+        });
+      }
+
+      start = pagination;
+      if (currentRestaurants.length == pagination) {
+        pagination += 200;
+      }
+
+
+    }
+    return "OK";
+  },
+
   async createPlacesByJSON(ctx) {
 
 

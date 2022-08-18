@@ -1,0 +1,93 @@
+{
+  "kind": "collectionType",
+  "collectionName": "restaurants",
+  "info": {
+    "singularName": "restaurant",
+    "pluralName": "restaurants",
+    "displayName": "restaurant",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "entity": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::entity.entity"
+    },
+    "dishesShowroom": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "restauranttypes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::restauranttype.restauranttype",
+      "inversedBy": "restaurants"
+    },
+    "rating": {
+      "type": "decimal"
+    },
+    "likes": {
+      "type": "integer",
+      "default": 0
+    },
+    "hide": {
+      "type": "boolean",
+      "default": false
+    },
+    "priceLevel": {
+      "type": "integer",
+      "default": 1
+    },
+    "sortPosition": {
+      "type": "integer",
+      "default": 9999
+    },
+    "menuURL": {
+      "type": "string"
+    },
+    "menuImages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "bookingMethod": {
+      "type": "string",
+      "required": true
+    },
+    "foodanddrinks": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::foodanddrink.foodanddrink",
+      "mappedBy": "restaurant"
+    },
+    "menus": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::restaurantmenu.restaurantmenu",
+      "mappedBy": "restaurant"
+    },
+    "serviceLevel": {
+      "type": "integer",
+      "required": true,
+      "default": 0,
+      "min": 0
+    }
+  }
+}

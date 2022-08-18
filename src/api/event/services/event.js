@@ -212,6 +212,13 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
     return htmlResult;
   },
 
+  async createTweet() {
+    console.log("hello");
+  },
+
+  async createTweet2() {
+    console.log("Gello");
+  }
 }));
 
 function padLeadingZeros(num, size) {

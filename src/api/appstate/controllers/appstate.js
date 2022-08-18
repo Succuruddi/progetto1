@@ -24,7 +24,7 @@ module.exports = createCoreController(
             'appVersion': ctx.request.header.appversion
           }
         });
-        /*let result = await strapi.entityService.findMany('api::festival.festival', {
+        let result = await strapi.entityService.findMany('api::festival.festival', {
           filters: {
             $and: [{
               showOnMenu: true,
@@ -34,13 +34,13 @@ module.exports = createCoreController(
             menuOrder: 'asc'
           }
         });
-        appState.menu = result; 
-      }*/
+        appState.menu = result;
+      }
       if (appState) {
         return appState;
       } else {
         return ctx.unauthorized(`You can't access`);
       }
-    }
-  }})
+    },
+  })
 );

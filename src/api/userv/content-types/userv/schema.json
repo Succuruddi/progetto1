@@ -1,0 +1,9 @@
+{ "kind": "collectionType",
+    "collectionName": "usersv",
+    "info": {
+      "singularName": "userv",
+      "pluralName": "usersv",
+      "displayName": "userv",
+      "description": ""
+    },
+    "attributes": {}}

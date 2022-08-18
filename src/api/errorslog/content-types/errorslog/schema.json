@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "errorslogs",
+  "info": {
+    "singularName": "errorslog",
+    "pluralName": "errorslogs",
+    "displayName": "errorslog"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "error": {
+      "type": "text"
+    },
+    "place_id": {
+      "type": "string"
+    },
+    "place": {
+      "type": "json"
+    }
+  }
+}

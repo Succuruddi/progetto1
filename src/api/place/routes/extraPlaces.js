@@ -30,6 +30,11 @@ module.exports = {
       handler: 'place.fixSlug',
     },
     { // Path defined with a URL parameter
+      method: 'GET',
+      path: '/places/fixservicelevel',
+      handler: 'place.fixServiceLevel',
+    },
+    { // Path defined with a URL parameter
       method: 'POST',
       path: '/places/createPlaceByJSON',
       handler: 'place.createPlacesByJSON',

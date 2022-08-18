@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "restaurantmenus",
+  "info": {
+    "singularName": "restaurantmenu",
+    "pluralName": "restaurantmenus",
+    "displayName": "restaurantmenu",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "string"
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::restaurant.restaurant",
+      "inversedBy": "menus"
+    },
+    "available": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "restaurantmenusections": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::restaurantmenusection.restaurantmenusection",
+      "mappedBy": "restaurantmenu"
+    }
+  }
+}

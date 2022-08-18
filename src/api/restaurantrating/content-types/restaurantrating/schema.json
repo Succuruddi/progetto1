@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "restaurantratings",
+  "info": {
+    "singularName": "restaurantrating",
+    "pluralName": "restaurantratings",
+    "displayName": "restaurantrating"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "rate": {
+      "type": "integer",
+      "required": true
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::restaurant.restaurant"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

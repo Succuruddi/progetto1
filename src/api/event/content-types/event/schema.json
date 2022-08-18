@@ -95,6 +95,12 @@
       "target": "api::category.category",
       "inversedBy": "events"
     },
+    "festival": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::festival.festival",
+      "inversedBy": "events"
+    },
     "endDate": {
       "pluginOptions": {
         "i18n": {

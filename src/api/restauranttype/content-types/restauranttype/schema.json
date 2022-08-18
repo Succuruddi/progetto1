@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "restauranttypes",
+  "info": {
+    "singularName": "restauranttype",
+    "pluralName": "restauranttypes",
+    "displayName": "restauranttype"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "position": {
+      "type": "integer",
+      "default": 99
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "restaurants": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::restaurant.restaurant",
+      "mappedBy": "restauranttypes"
+    }
+  }
+}

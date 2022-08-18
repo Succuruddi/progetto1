@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_place_periods",
+  "info": {
+    "displayName": "periods",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "close": {
+      "type": "component",
+      "repeatable": false,
+      "component": "place.opening-period"
+    },
+    "open": {
+      "type": "component",
+      "repeatable": false,
+      "component": "place.opening-period"
+    }
+  }
+}
