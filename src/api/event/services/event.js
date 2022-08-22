@@ -213,15 +213,15 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
     return htmlResult;
   },
 
-  async createTweet(description) {
+  async createTweet(title, performers, organisers,hour,description) {
 
     const oauth = OAuth({
 
       consumer: {
 
-        key: 'P2aTclntqMENhz7wDUnVZz822',
+        key: '0PX0GSx4f4l0p8iLVJJVNqdH5',
 
-        secret: 'zpcYTn8y6WiHTQ8rFHP3na4OetmgMLBnOZW8aNZxGeMcikE7LK'
+        secret: 'ncuTssIPzDpVB6Nx8WR1xOpQ8J3I6DjJpvE1W0aBqQGMrYBcaN'
 
       },
 
@@ -253,12 +253,11 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
     try {
 
-
+       var total=title+"\n"+"👤"+performers +"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description;
 
       const req = await axios.post('https://api.twitter.com/2/tweets', {
 
-        "text": description
-
+        "text": total
       }, {
 
         headers: {
