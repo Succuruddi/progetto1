@@ -5,13 +5,34 @@ module.exports = {
     console.log('cron running');
     //strapi.service('api::pub.pub').createTweet();
 
+    var nowDate=new Date();
+    
+    var nextDate= new Date();
+    nextDate.setHours(nowDate.getHours()+6);
+     
+    console.log(nowDate);
+    console.log(nextDate);
 
     let event = await strapi.entityService.findMany('api::event.event', { // predno un evento dopo passo alla funzione create tweet descrizione titolo
      
       populate: ['organisers', 'performers'],
+      filters: { 
+        $and:[
+          {
+         date:{
+          $gt:nowDate} ,
+          },
+         {
+          date:{
+            $lte: nextDate}
+        
+          }]
+         
+        
      
    
-    });
+  }
+});
 
     if (event != null && event.length > 0) {
       
@@ -25,7 +46,7 @@ module.exports = {
         console.log(hour);
         var title= event[i].title;
         
-        //console.log(event[0].title);
+        console.log(event[0]);
           for(var z=0; z < event[i].performers.length; z++){
 
           performers= performers +  event[i].performers[z].twitter + " ";
@@ -37,8 +58,8 @@ module.exports = {
           
           }
         
-        
-      strapi.service('api::event.event').createTweet(title, performers, organisers,hour,description);
+       console.log(event[i]) 
+      //strapi.service('api::event.event').createTweet(title, performers, organisers,hour,description);
     }
       
     }
