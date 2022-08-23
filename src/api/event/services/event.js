@@ -380,8 +380,10 @@ if (event != null && event.length > 0) {
 
 
     try {var total;
-      if(performer==""){ total=title+"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
-      else{              total=title+"\n"+"👤"+performers +"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
+      if(performer=="" && organisers!=""){ total=title+"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
+     else if(performer=="" && organisers==""){total=title+"\n" +"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
+     else if(performer!="" && organisers==""){total=title+"\n"+"👤"+performers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
+      else{          total=title+"\n"+"👤"+performers +"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
 
       const req = await axios.post('https://api.twitter.com/2/tweets', {
 
