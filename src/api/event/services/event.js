@@ -296,9 +296,9 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         var organisersTwitterAccounts = "📍:";
         var description = event[i].description;
         var shortDescription = event[i].shortDescription
-        var date = event[i].date;
-        var c = date.split(":");
-        var hour = c[0];
+        var date =new Date(event[i].date);
+        var hour = date.getHours();
+        
         console.log(hour);
         var title = event[i].title;
         console.log(event[i]);
@@ -329,30 +329,37 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         } else {
           organisersTwitterAccounts = "";
         }
-        //TODO: scrivere qua il time tipo
-        // var time = 🕑 + " "+hour;
 
-        //var tweet = title +"\n" + performersTwitterAccounts + "\n" + organisersTwitterAccounts + "\n" + time + "\n\n" + shortDescription;
 
-        //CONTROLLARE I CARATTERI DEL TWEET
-        // if(tweet.length < XXX) { tweet += "\n"+hashtags}else { cut the tweet until the permitted length oppure provare cosa sucede in twitter se il length è piu grande}
+
+        var hastag="#vive #badajoz #viveBadajoz #turismo #eventos #planes #viveapp";
+         var time = "🕑 "+ " "+hour;
+       var url="https://vivelaapp.es/evento/"+event[i].slug;
+        var tweet = title +"\n" + performersTwitterAccounts + "\n" + organisersTwitterAccounts + 
+        "\n" + time + "\n\n" + shortDescription+"\n\n"+hastag
+        +"\n\n"+"https://vivelaapp.es/evento/"+event[i].slug+"\n";
+
+        //CONTROLLARE I CARATTERI DEL TWEET Gli hastag non ci sono nel db
+        if(tweet.length < 281) {  //cut the tweet until the permitted length oppure provare cosa sucede in twitter se il length è piu grande}
 
         //CALL CREATETWEET(TWEET);
 
         // console.log(event[i]) 
         //console.log(title, performersTwitterAccounts, organisersTwitterAccounts,hour,description, shortDescription)
-        strapi.service('api::event.event').createTweet(title, performersTwitterAccounts, organisersTwitterAccounts, hour, description, shortDescription);
+       // strapi.service('api::event.event').createTweet(tweet);
+        console.log(tweet);
       }
+      else{console.log("error: tweet length maximum reached")}
 
     }
-  },
+  }},
 
 
 
 
 
 
-  async createTweet(title, performers, organisers, hour, description, shortDescription) {
+  async createTweet(tweet) {
 
     const oauth = OAuth({
 
@@ -391,7 +398,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
 
     try {
-      var total;
+      /*var total;
       if (performers == "" && organisers != "") {
         total = title + "\n" + "📍" + organisers + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
       } else if (performers == "" && organisers == "") {
@@ -400,12 +407,11 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         total = title + "\n" + "👤" + performers + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
       } else {
         total = title + "\n" + "👤" + performers + "\n" + "📍" + organisers + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
-      }
+      }*/
 
-      console.log(total);
-      /*const req = await axios.post('https://api.twitter.com/2/tweets', {
+      const req = await axios.post('https://api.twitter.com/2/tweets', {
 
-        "text": total
+        "text": tweet
       }, {
 
         headers: {
@@ -420,7 +426,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
         }
 
-      });*/
+      });
 
     } catch (error) {
 
