@@ -300,31 +300,36 @@ if (event != null && event.length > 0) {
     var hour=c[1]; 
     console.log(hour);
     var title= event[i].title;
-    console.log(event[i])
+    
    
    
-    if(event[i].perfomers.twitter==null){performersTwitterAccountss =event[i].performers.name}
-    else{  for(var z=0; z < event[i].performers.length; z++){
-
-      performersTwitterAccountss +=    event[i].performers[z].twitter + " ";
+    
+      for(var z=0; z < event[i].performers.length; z++){
+        if(event[i].perfomers[z].twitter==null)
+          {performersTwitterAccountss +=event[i].performers[z].name}
+        else
+          {performersTwitterAccountss +=    event[i].performers[z].twitter + " ";
     }
       }
       
-    if(event[i].organisers.twitter==null)
-    {
-      organisersTwitterAccountss =event[i].organisers.name
-    }   
-    else 
-    {
+   
+    
+    
       for(var x=0; x < event[i].organisers.length; x++)
       {
-
+        if(event[i].organisers[x].twitter==null)
+        {
+          organisersTwitterAccountss +=event[i].organisers[x].name
+        }  
+        else
+        { 
       organisersTwitterAccountss +=  event[i].organisers[x].twitter + " ";
-      
+        }
       }
-    }
+    
     
    console.log(event[i]) 
+   console.log(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description, shortDescription)
   // createTweet(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description, shortDescription);
 }
   
@@ -374,9 +379,9 @@ if (event != null && event.length > 0) {
 
 
 
-    try {
-
-       var total=title+"\n"+"👤"+performers +"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;
+    try {var total;
+      if(performer==""){ total=title+"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
+      else{              total=title+"\n"+"👤"+performers +"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
 
       const req = await axios.post('https://api.twitter.com/2/tweets', {
 
