@@ -297,7 +297,7 @@ if (event != null && event.length > 0) {
     var  shortDescription= event[i].shortDescription
     var date=event[i].date;
     var c=date.split(":");
-    var hour=c[1]; 
+    var hour=c[0]; 
     console.log(hour);
     var title= event[i].title;
     
@@ -328,9 +328,9 @@ if (event != null && event.length > 0) {
       }
     
     
-   console.log(event[i]) 
-   console.log(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description, shortDescription)
-  // createTweet(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description, shortDescription);
+  // console.log(event[i]) 
+   //console.log(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description, shortDescription)
+   strapi.service('api::event.event').createTweet(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description, shortDescription);
 }
   
 }    
@@ -341,7 +341,7 @@ if (event != null && event.length > 0) {
   
   
   
-  async createTweet(title, performers, organisers,hour,description,shortDescription) {
+  async createTweet(title, performers, organisers,hour,description, shortDescription) {
 
     const oauth = OAuth({
 
@@ -380,9 +380,9 @@ if (event != null && event.length > 0) {
 
 
     try {var total;
-      if(performer=="" && organisers!=""){ total=title+"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
-     else if(performer=="" && organisers==""){total=title+"\n" +"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
-     else if(performer!="" && organisers==""){total=title+"\n"+"👤"+performers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
+      if(performers=="" && organisers!=""){ total=title+"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
+     else if(performers=="" && organisers==""){total=title+"\n" +"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
+     else if(performers!="" && organisers==""){total=title+"\n"+"👤"+performers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
       else{          total=title+"\n"+"👤"+performers +"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
 
       const req = await axios.post('https://api.twitter.com/2/tweets', {
