@@ -284,34 +284,48 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
      
    
   }  
-})
+}) 
+
 if (event != null && event.length > 0) {
   
       
   for(var i=0; i < event.length; i++){
+    
     var performersTwitterAccountss="";
     var organisersTwitterAccountss="";
     var description = event[i].description;
+    var  shortDescription= event[i].shortDescription
     var date=event[i].date;
     var c=date.split(":");
     var hour=c[1]; 
-  
+    console.log(hour);
     var title= event[i].title;
-    
+    console.log(event[i])
    
-      for(var z=0; z < event[i].performers.length; z++){
+   
+    if(event[i].perfomers.twitter==null){performersTwitterAccountss =event[i].performers.name}
+    else{  for(var z=0; z < event[i].performers.length; z++){
 
-      performersTwitterAccountss=  performersTwitterAccountss +  event[i].performers[z].twitter + " ";
-     
+      performersTwitterAccountss +=    event[i].performers[z].twitter + " ";
+    }
       }
-      for(var x=0; x < event[i].organisers.length; x++){
+      
+    if(event[i].organisers.twitter==null)
+    {
+      organisersTwitterAccountss =event[i].organisers.name
+    }   
+    else 
+    {
+      for(var x=0; x < event[i].organisers.length; x++)
+      {
 
-      organisersTwitterAccountss= organisersTwitterAccountss + event[i].organisers[x].twitter + " ";
+      organisersTwitterAccountss +=  event[i].organisers[x].twitter + " ";
       
       }
+    }
     
    console.log(event[i]) 
-  // createTweet(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description);
+  // createTweet(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description, shortDescription);
 }
   
 }    
@@ -322,7 +336,7 @@ if (event != null && event.length > 0) {
   
   
   
-  async createTweet(title, performers, organisers,hour,description) {
+  async createTweet(title, performers, organisers,hour,description,shortDescription) {
 
     const oauth = OAuth({
 
@@ -362,7 +376,7 @@ if (event != null && event.length > 0) {
 
     try {
 
-       var total=title+"\n"+"👤"+performers +"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description;
+       var total=title+"\n"+"👤"+performers +"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;
 
       const req = await axios.post('https://api.twitter.com/2/tweets', {
 
