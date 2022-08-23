@@ -8,7 +8,7 @@ const {
 } = require('@strapi/strapi').factories;
 const {
   Client
- // ,auth    l'ho cambito io percghè sull'altro file non c'era auth
+  // ,auth    l'ho cambito io percghè sull'altro file non c'era auth
 
 } = require('twitter-api-sdk');
 
@@ -17,6 +17,9 @@ const axios = require('axios').default;
 
 const crypto = require('crypto');
 const OAuth = require('oauth-1.0a');
+const {
+  time
+} = require('console');
 
 module.exports = createCoreService('api::event.event', ({
   strapi
@@ -213,7 +216,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
     return htmlResult;
   },
 
-  
+
   /*searchEvents(){
 {
     console.log('cron running');
@@ -261,87 +264,95 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
   }
   },*/
-  
-  
-  
-  async publicEventsToSocialMedia (startDate, endDate) { 
-    let event = await strapi.entityService.findMany('api::event.event', { // prendo un evento dopo passo alla funzione create tweet descrizione titolo
-     
-      populate: ['organisers', 'performers'],
-      filters: { 
-        $and:[
-          {
-         date:{
-          $gt:startDate} ,
-          },
-         {
-          date:{
-            $lte: endDate}
-        
-          }]
-         
-        
-     
-   
-  }  
-}) 
 
-if (event != null && event.length > 0) {
-  
-      
-  for(var i=0; i < event.length; i++){
-    
-    var performersTwitterAccountss="";
-    var organisersTwitterAccountss="";
-    var description = event[i].description;
-    var  shortDescription= event[i].shortDescription
-    var date=event[i].date;
-    var c=date.split(":");
-    var hour=c[0]; 
-    console.log(hour);
-    var title= event[i].title;
-    
-   
-   
-    
-      for(var z=0; z < event[i].performers.length; z++){
-        if(event[i].perfomers[z].twitter==null)
-          {performersTwitterAccountss +=event[i].performers[z].name}
-        else
-          {performersTwitterAccountss +=    event[i].performers[z].twitter + " ";
-    }
+
+
+  async publicEventsToSocialMedia(startDate, endDate) {
+    let event = await strapi.entityService.findMany('api::event.event', { // prendo un evento dopo passo alla funzione create tweet descrizione titolo
+
+      populate: ['organisers', 'performers'],
+      filters: {
+        $and: [{
+            date: {
+              $gt: startDate
+            },
+          },
+          {
+            date: {
+              $lte: endDate
+            }
+
+          }
+        ]
       }
-      
-   
-    
-    
-      for(var x=0; x < event[i].organisers.length; x++)
-      {
-        if(event[i].organisers[x].twitter==null)
-        {
-          organisersTwitterAccountss +=event[i].organisers[x].name
-        }  
-        else
-        { 
-      organisersTwitterAccountss +=  event[i].organisers[x].twitter + " ";
+    })
+
+    if (event != null && event.length > 0) {
+
+
+      for (var i = 0; i < event.length; i++) {
+
+        var performersTwitterAccounts = "👤:";
+        var organisersTwitterAccounts = "📍:";
+        var description = event[i].description;
+        var shortDescription = event[i].shortDescription
+        var date = event[i].date;
+        var c = date.split(":");
+        var hour = c[0];
+        console.log(hour);
+        var title = event[i].title;
+        console.log(event[i]);
+        if (event[i].performers != null && event[i].performers.length > 0) {
+          console.log(event[i].performers);
+          for (var z = 0; z < event[i].performers.length; z++) {
+            console.log(event[i].performers[z]);
+            if (event[i].performers[z].twitter == null || event[i].performers[z].twitter == "") {
+              performersTwitterAccounts += " " + event[i].performers[z].name;
+            } else {
+              performersTwitterAccounts += " " + event[i].performers[z].twitter;
+            }
+          }
+        } else {
+          performersTwitterAccounts = "";
         }
+        if (event[i].organisers != null && event[i].organisers.length > 0) {
+          for (var x = 0; x < event[i].organisers.length; x++) {
+
+            if (event[i].organisers[x].twitter == null || event[i].organisers[x].twitter == "") {
+              organisersTwitterAccounts += " " + event[i].organisers[x].name;
+            } else {
+              organisersTwitterAccounts += " " + event[i].organisers[x].twitter + " ";
+            }
+          }
+        } else if (event[i].seo != null && event[i].seo.locationName != null && event[i].seo.locationName != "") {
+          organisersTwitterAccounts = event[i].seo.locationName;
+        } else {
+          organisersTwitterAccounts = "";
+        }
+        //TODO: scrivere qua il time tipo
+        // var time = 🕑 + " "+hour;
+
+        //var tweet = title +"\n" + performersTwitterAccounts + "\n" + organisersTwitterAccounts + "\n" + time + "\n\n" + shortDescription;
+
+        //CONTROLLARE I CARATTERI DEL TWEET
+        // if(tweet.length < XXX) { tweet += "\n"+hashtags}else { cut the tweet until the permitted length oppure provare cosa sucede in twitter se il length è piu grande}
+
+        //CALL CREATETWEET(TWEET);
+
+        // console.log(event[i]) 
+        //console.log(title, performersTwitterAccounts, organisersTwitterAccounts,hour,description, shortDescription)
+        strapi.service('api::event.event').createTweet(title, performersTwitterAccounts, organisersTwitterAccounts, hour, description, shortDescription);
       }
-    
-    
-  // console.log(event[i]) 
-   //console.log(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description, shortDescription)
-   strapi.service('api::event.event').createTweet(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description, shortDescription);
-}
-  
-}    
-   },
-  
-  
-  
-  
-  
-  
-  async createTweet(title, performers, organisers,hour,description, shortDescription) {
+
+    }
+  },
+
+
+
+
+
+
+  async createTweet(title, performers, organisers, hour, description, shortDescription) {
 
     const oauth = OAuth({
 
@@ -379,13 +390,20 @@ if (event != null && event.length > 0) {
 
 
 
-    try {var total;
-      if(performers=="" && organisers!=""){ total=title+"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
-     else if(performers=="" && organisers==""){total=title+"\n" +"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
-     else if(performers!="" && organisers==""){total=title+"\n"+"👤"+performers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
-      else{          total=title+"\n"+"👤"+performers +"\n"+ "📍"+ organisers + "\n"+"🕑"+hour+ "\n" + description+"\n"+shortDescription;}
+    try {
+      var total;
+      if (performers == "" && organisers != "") {
+        total = title + "\n" + "📍" + organisers + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
+      } else if (performers == "" && organisers == "") {
+        total = title + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
+      } else if (performers != "" && organisers == "") {
+        total = title + "\n" + "👤" + performers + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
+      } else {
+        total = title + "\n" + "👤" + performers + "\n" + "📍" + organisers + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
+      }
 
-      const req = await axios.post('https://api.twitter.com/2/tweets', {
+      console.log(total);
+      /*const req = await axios.post('https://api.twitter.com/2/tweets', {
 
         "text": total
       }, {
@@ -402,7 +420,7 @@ if (event != null && event.length > 0) {
 
         }
 
-      });
+      });*/
 
     } catch (error) {
 
