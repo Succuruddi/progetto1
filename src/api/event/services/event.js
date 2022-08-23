@@ -264,7 +264,58 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
   
   
   
+  async publicEventsToSocialMedia (startDate, endDate) { 
+    let event = await strapi.entityService.findMany('api::event.event', { // prendo un evento dopo passo alla funzione create tweet descrizione titolo
+     
+      populate: ['organisers', 'performers'],
+      filters: { 
+        $and:[
+          {
+         date:{
+          $gt:startDate} ,
+          },
+         {
+          date:{
+            $lte: endDate}
+        
+          }]
+         
+        
+     
+   
+  }  
+})
+if (event != null && event.length > 0) {
   
+      
+  for(var i=0; i < event.length; i++){
+    var performersTwitterAccountss="";
+    var organisersTwitterAccountss="";
+    var description = event[i].description;
+    var date=event[i].date;
+    var c=date.split(":");
+    var hour=c[1]; 
+  
+    var title= event[i].title;
+    
+   
+      for(var z=0; z < event[i].performers.length; z++){
+
+      performersTwitterAccountss=  performersTwitterAccountss +  event[i].performers[z].twitter + " ";
+     
+      }
+      for(var x=0; x < event[i].organisers.length; x++){
+
+      organisersTwitterAccountss= organisersTwitterAccountss + event[i].organisers[x].twitter + " ";
+      
+      }
+    
+   console.log(event[i]) 
+  // createTweet(title, performersTwitterAccountss, organisersTwitterAccountss,hour,description);
+}
+  
+}    
+   },
   
   
   
