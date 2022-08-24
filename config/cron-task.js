@@ -1,5 +1,5 @@
 module.exports = {
-  '*/1,2,3,4,5,6,7,8,9,10 * * * *': async ({ // '*/29 */2,8,14,20 * * *'
+  '*/1,2 * * * *': async ({ 
     strapi
   }) => {
     console.log('cron running');
@@ -12,7 +12,7 @@ module.exports = {
      
     console.log(startDate);
     console.log(endDate);
-    strapi.service('api::event.event').publicEventsToSocialMedia(startDate,endDate);
+   strapi.service('api::event.event').publicEventsToSocialMedia(startDate,endDate);
 
    
     

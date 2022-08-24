@@ -333,7 +333,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
 
         var hastag="#vive #badajoz #viveBadajoz #turismo #eventos #planes #viveapp";
-         var time = "🕑 "+ " "+hour;
+         var time = "🕑: "+ " "+hour;
        var url="https://vivelaapp.es/evento/"+event[i].slug;
         var tweet = title +"\n" + performersTwitterAccounts + "\n" + organisersTwitterAccounts + 
         "\n" + time + "\n\n" + shortDescription+"\n\n"+hastag
@@ -348,8 +348,8 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         //console.log(title, performersTwitterAccounts, organisersTwitterAccounts,hour,description, shortDescription)
         strapi.service('api::event.event').createTweet(tweet);
        // console.log(tweet);
-      
-        setTimeout(delay, 60000,tweet);
+          delayBetweenTweet=120000 + Math.floor(Math.random() * 60000);
+        setTimeout(delay,delayBetweenTweet ,tweet);
         console.log(event[i].date)
         
       }
