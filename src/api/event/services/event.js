@@ -346,7 +346,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
         // console.log(event[i]) 
         //console.log(title, performersTwitterAccounts, organisersTwitterAccounts,hour,description, shortDescription)
-        strapi.service('api::event.event').createTweet(tweet);
+        //strapi.service('api::event.event').createTweet(tweet);
        // console.log(tweet);
           delayBetweenTweet=120000 + Math.floor(Math.random() * 60000);
         setTimeout(delay,delayBetweenTweet ,tweet);
