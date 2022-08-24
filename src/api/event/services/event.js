@@ -271,7 +271,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
     let event = await strapi.entityService.findMany('api::event.event', { // prendo un evento dopo passo alla funzione create tweet descrizione titolo
 
       populate: ['organisers', 'performers'],
-      filters: {
+     /* filters: {
         $and: [{
             date: {
               $gt: startDate
@@ -284,7 +284,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
           }
         ]
-      }
+      }*/
     })
 
     if (event != null && event.length > 0) {
@@ -299,13 +299,13 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         var date =new Date(event[i].date);
         var hour = date.getHours();
         
-        console.log(hour);
+       // console.log(hour);
         var title = event[i].title;
-        console.log(event[i]);
+       // console.log(event[i]);
         if (event[i].performers != null && event[i].performers.length > 0) {
-          console.log(event[i].performers);
+         // console.log(event[i].performers);
           for (var z = 0; z < event[i].performers.length; z++) {
-            console.log(event[i].performers[z]);
+           // console.log(event[i].performers[z]);
             if (event[i].performers[z].twitter == null || event[i].performers[z].twitter == "") {
               performersTwitterAccounts += " " + event[i].performers[z].name;
             } else {
@@ -346,8 +346,12 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
         // console.log(event[i]) 
         //console.log(title, performersTwitterAccounts, organisersTwitterAccounts,hour,description, shortDescription)
-       // strapi.service('api::event.event').createTweet(tweet);
-        console.log(tweet);
+        strapi.service('api::event.event').createTweet(tweet);
+       // console.log(tweet);
+      
+        setTimeout(strapi.service('api::event.event').createTweet(tweet), 60000,tweet);
+        console.log(event[i].date)
+        
       }
       else{console.log("error: tweet length maximum reached")}
 
@@ -445,6 +449,12 @@ function padLeadingZeros(num, size) {
   var s = num + "";
   while (s.length < size) s = "0" + s;
   return s;
+}
+
+
+function delay(tweet) {
+
+  console.log(tweet);
 }
 
 function formateDate(startDate, endDate) {
