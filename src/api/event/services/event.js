@@ -249,7 +249,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         var shortDescription = event[i].shortDescription
         var date = new Date(event[i].date);
         var hour = date.getHours();
-
+        var minutes = date.getMinutes();
         var title = event[i].title;
         if (event[i].performers != null && event[i].performers.length > 0) {
           for (var z = 0; z < event[i].performers.length; z++) {
@@ -280,7 +280,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
 
         var hastag = "#vive #badajoz #viveBadajoz #turismo #eventos #planes #viveapp";
-        var time = "🕑: " + " " + hour;
+        var time = "🕑 : " + " " + hour + ":" + minutes;
         var url = "https://vivelaapp.es/evento/" + event[i].slug;
         var tweet = title + "\n" + performersTwitterAccounts + "\n" + organisersTwitterAccounts +
           "\n" + time + "\n\n" + shortDescription + "\n\n" + hastag +
