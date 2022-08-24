@@ -1,5 +1,5 @@
 module.exports = {
-  '*/1,2 * * * *': async ({ 
+  '*/29 */2,8,14,20 * * *': async ({ 
     strapi
   }) => {
     console.log('cron running');
