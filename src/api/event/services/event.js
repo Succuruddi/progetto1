@@ -217,7 +217,9 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
   },
 
   async publicEventsToSocialMedia(startDate, endDate) {
-    let event = await strapi.entityService.findMany('api::event.event', { 
+    console.log("The start date is: " + startDate);
+    console.log("The end date is: " + endDate);
+    let event = await strapi.entityService.findMany('api::event.event', {
 
       populate: ['organisers', 'performers'],
       filters: {
@@ -234,10 +236,10 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
           }
         ]
       }
-    })
-
+    });
+    console.log(new Date() + "I've searched for the events");
     if (event != null && event.length > 0) {
-
+      console.log(event);
 
       for (var i = 0; i < event.length; i++) {
 
@@ -245,9 +247,9 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         var organisersTwitterAccounts = "📍:";
         var description = event[i].description;
         var shortDescription = event[i].shortDescription
-        var date =new Date(event[i].date);
+        var date = new Date(event[i].date);
         var hour = date.getHours();
-        
+
         var title = event[i].title;
         if (event[i].performers != null && event[i].performers.length > 0) {
           for (var z = 0; z < event[i].performers.length; z++) {
@@ -277,24 +279,27 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
 
 
-        var hastag="#vive #badajoz #viveBadajoz #turismo #eventos #planes #viveapp";
-         var time = "🕑: "+ " "+hour;
-       var url="https://vivelaapp.es/evento/"+event[i].slug;
-        var tweet = title +"\n" + performersTwitterAccounts + "\n" + organisersTwitterAccounts + 
-        "\n" + time + "\n\n" + shortDescription+"\n\n"+hastag
-        +"\n\n"+"https://vivelaapp.es/evento/"+event[i].slug+"\n";
+        var hastag = "#vive #badajoz #viveBadajoz #turismo #eventos #planes #viveapp";
+        var time = "🕑: " + " " + hour;
+        var url = "https://vivelaapp.es/evento/" + event[i].slug;
+        var tweet = title + "\n" + performersTwitterAccounts + "\n" + organisersTwitterAccounts +
+          "\n" + time + "\n\n" + shortDescription + "\n\n" + hastag +
+          "\n\n" + url + "\n";
 
-       
-        if(tweet.length < 281) {  
-          delayBetweenTweet=120000 + Math.floor(Math.random() * 60000);
-        setTimeout(delay,delayBetweenTweet ,tweet);
-        console.log(event[i].date)
-        
+
+        if (tweet.length < 281) {
+          console.log(new Date() + "I'm going to print the tweet with current time: ");
+          var delayBetweenTweet = 120000 + Math.floor(Math.random() * 60000);
+          setTimeout(delay, delayBetweenTweet, tweet);
+
+
+        } else {
+          console.log("error: tweet length maximum reached")
+        }
+
       }
-      else{console.log("error: tweet length maximum reached")}
-
     }
-  }},
+  },
 
 
 
@@ -340,7 +345,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
 
     try {
-        const req = await axios.post('https://api.twitter.com/2/tweets', {
+      const req = await axios.post('https://api.twitter.com/2/tweets', {
 
         "text": tweet
       }, {
@@ -380,8 +385,9 @@ function padLeadingZeros(num, size) {
 
 
 function delay(tweet) {
-
-  strapi.service('api::event.event').createTweet(tweet)
+  console.log(new Date() + "now I'm in delay about to print the tweet: ");
+  console.log(tweet);
+  //strapi.service('api::event.event').createTweet(tweet)
 }
 
 function formateDate(startDate, endDate) {
