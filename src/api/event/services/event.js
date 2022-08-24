@@ -216,62 +216,11 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
     return htmlResult;
   },
 
-
-  /*searchEvents(){
-{
-    console.log('cron running');
-    //strapi.service('api::pub.pub').createTweet();
-
-
-    let event = await strapi.entityService.findMany('api::event.event', { // predno un evento dopo passo alla funzione create tweet descrizione titolo
-     
-      populate: ['organisers', 'performers'],
-     
-   
-    });
-
-    if (event != null && event.length > 0) {
-      
-      for(var i=0; i < event.length; i++){
-        var performers="";
-        var organisers="";
-        var description = event[i].description;
-        var date=event[i].date;
-        var c=date.split(":");
-        var hour=c[1]; 
-        console.log(hour);
-        var title= event[i].title;
-        
-        //console.log(event[0].title);
-          for(var z=0; z < event[i].performers.length; z++){
-
-          performers= performers +  event[i].performers[z].twitter + " ";
-         
-          }
-          for(var x=0; x < event[i].organisers.length; x++){
-
-          organisers= organisers + event[i].organisers[x].twitter + " ";
-          
-          }
-        
-        
-      strapi.service('api::event.event').createTweet(title, performers, organisers,hour,description);
-    }
-      
-    }
-
-    ;
-
-  }
-  },*/
-
-
-
   async publicEventsToSocialMedia(startDate, endDate) {
-    let event = await strapi.entityService.findMany('api::event.event', { // prendo un evento dopo passo alla funzione create tweet descrizione titolo
+    let event = await strapi.entityService.findMany('api::event.event', { 
 
       populate: ['organisers', 'performers'],
-     /* filters: {
+      filters: {
         $and: [{
             date: {
               $gt: startDate
@@ -284,7 +233,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
           }
         ]
-      }*/
+      }
     })
 
     if (event != null && event.length > 0) {
@@ -299,13 +248,9 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         var date =new Date(event[i].date);
         var hour = date.getHours();
         
-       // console.log(hour);
         var title = event[i].title;
-       // console.log(event[i]);
         if (event[i].performers != null && event[i].performers.length > 0) {
-         // console.log(event[i].performers);
           for (var z = 0; z < event[i].performers.length; z++) {
-           // console.log(event[i].performers[z]);
             if (event[i].performers[z].twitter == null || event[i].performers[z].twitter == "") {
               performersTwitterAccounts += " " + event[i].performers[z].name;
             } else {
@@ -339,15 +284,8 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         "\n" + time + "\n\n" + shortDescription+"\n\n"+hastag
         +"\n\n"+"https://vivelaapp.es/evento/"+event[i].slug+"\n";
 
-        //CONTROLLARE I CARATTERI DEL TWEET Gli hastag non ci sono nel db
-        if(tweet.length < 281) {  //cut the tweet until the permitted length oppure provare cosa sucede in twitter se il length è piu grande}
-
-        //CALL CREATETWEET(TWEET);
-
-        // console.log(event[i]) 
-        //console.log(title, performersTwitterAccounts, organisersTwitterAccounts,hour,description, shortDescription)
-        //strapi.service('api::event.event').createTweet(tweet);
-       // console.log(tweet);
+       
+        if(tweet.length < 281) {  
           delayBetweenTweet=120000 + Math.floor(Math.random() * 60000);
         setTimeout(delay,delayBetweenTweet ,tweet);
         console.log(event[i].date)
@@ -402,18 +340,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
 
     try {
-      /*var total;
-      if (performers == "" && organisers != "") {
-        total = title + "\n" + "📍" + organisers + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
-      } else if (performers == "" && organisers == "") {
-        total = title + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
-      } else if (performers != "" && organisers == "") {
-        total = title + "\n" + "👤" + performers + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
-      } else {
-        total = title + "\n" + "👤" + performers + "\n" + "📍" + organisers + "\n" + "🕑" + hour + "\n" + description + "\n" + shortDescription;
-      }*/
-
-      const req = await axios.post('https://api.twitter.com/2/tweets', {
+        const req = await axios.post('https://api.twitter.com/2/tweets', {
 
         "text": tweet
       }, {

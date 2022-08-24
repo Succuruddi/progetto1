@@ -3,23 +3,10 @@ module.exports = {
     strapi
   }) => {
     console.log('cron running');
-    //strapi.service('api::pub.pub').createTweet();
-
     var startDate=new Date();
     startDate.setDate(startDate.getHours()+2);
     var endDate= new Date();
     endDate.setHours(startDate.getHours()+6); //imposto il lasso di tempo
-     
-    console.log(startDate);
-    console.log(endDate);
-   strapi.service('api::event.event').publicEventsToSocialMedia(startDate,endDate);
-
-   
-    
-      
-    
-
-    
-
-  }
+    strapi.service('api::event.event').publicEventsToSocialMedia(startDate,endDate);
+        }
 }
