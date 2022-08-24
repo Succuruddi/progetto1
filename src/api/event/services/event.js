@@ -349,7 +349,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
         strapi.service('api::event.event').createTweet(tweet);
        // console.log(tweet);
       
-        setTimeout(strapi.service('api::event.event').createTweet(tweet), 60000,tweet);
+        setTimeout(delay, 60000,tweet);
         console.log(event[i].date)
         
       }
@@ -454,7 +454,7 @@ function padLeadingZeros(num, size) {
 
 function delay(tweet) {
 
-  console.log(tweet);
+  strapi.service('api::event.event').createTweet(tweet)
 }
 
 function formateDate(startDate, endDate) {
