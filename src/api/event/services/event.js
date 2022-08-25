@@ -225,7 +225,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
     let event = await strapi.entityService.findMany('api::event.event', {
 
       populate: ['organisers', 'performers'],
-      /*filters: {
+      filters: {
         $and: [{
             date: {
               $gt: startDate
@@ -238,7 +238,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
           }
         ]
-      }*/
+      }
     });
     console.log(new Date() + "I've searched for the events");
     if (event != null && event.length > 0) {
