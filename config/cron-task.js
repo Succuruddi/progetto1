@@ -1,9 +1,9 @@
 module.exports = {
-  '8,29 2,8,13,15,20 * * *': async ({
+  '24,39 2,8,13,15,20 * * *': async ({
     //'*/1,2 * * * *': async ({
     strapi, env
   }) => {
-    var c=env("CONSUMER_KEY")
+    var c=process.env.CONSUMER_KEY
     console.log(c)
     
     console.log(new Date() + 'cron running');
@@ -11,6 +11,6 @@ module.exports = {
     startDate.setHours(startDate.getHours() + 2);
     var endDate = new Date();
     endDate.setHours(startDate.getHours() + 6); //imposto il lasso di tempo
-    strapi.service('api::event.event').publicEventsToSocialMedia(startDate, endDate);
+   strapi.service('api::event.event').publicEventsToSocialMedia(startDate, endDate);
   }
 }
