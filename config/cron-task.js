@@ -1,8 +1,11 @@
 module.exports = {
-  '29 2,8,13,14,20 * * *': async ({
+  '8,29 2,8,13,15,20 * * *': async ({
     //'*/1,2 * * * *': async ({
-    strapi
+    strapi, env
   }) => {
+    var c=env("CONSUMER_KEY")
+    console.log(c)
+    
     console.log(new Date() + 'cron running');
     var startDate = new Date();
     startDate.setHours(startDate.getHours() + 2);
