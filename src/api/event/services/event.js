@@ -307,14 +307,34 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
 
   async createTweet(tweet) {
+    const cronTasks = require("./cron-task");
 
+    module.exports = ({
+    
+      env
+    
+    }) => ({
+    
+     
+    
+    
+    
+    
+    
+   
+    
+    host: env('HOST', '0.0.0.0'),
+    
+      port: env.int('PORT', 1337),
+    
+    
     const oauth = OAuth({
 
       consumer: {
 
-        key: '0PX0GSx4f4l0p8iLVJJVNqdH5',
+        key: env('CONSUMER_KEY'),//'0PX0GSx4f4l0p8iLVJJVNqdH5',
 
-        secret: 'ncuTssIPzDpVB6Nx8WR1xOpQ8J3I6DjJpvE1W0aBqQGMrYBcaN'
+        secret: env('CONSUMER_KEY_SECRET')//'ncuTssIPzDpVB6Nx8WR1xOpQ8J3I6DjJpvE1W0aBqQGMrYBcaN'
 
       },
 
@@ -328,11 +348,12 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
     const token = {
 
-      key: '1555201215352504320-m8mrgpbn1GI17ej1YBInanDQTG7yVp',
+      key: env(ACCESS_TOKEN)//'1555201215352504320-m8mrgpbn1GI17ej1YBInanDQTG7yVp',
 
-      secret: '5VLtHB967vlEyPHLNtD4fm2iNVQJMG7q4Ie4bhDN0w3fA',
+      secret:env(ACCESS_TOKEN_SECRET) //'5VLtHB967vlEyPHLNtD4fm2iNVQJMG7q4Ie4bhDN0w3fA',
 
     };
+  })
 
     const authHeader = oauth.toHeader(oauth.authorize({
 
