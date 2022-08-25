@@ -225,7 +225,7 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
     let event = await strapi.entityService.findMany('api::event.event', {
 
       populate: ['organisers', 'performers'],
-      filters: {
+      /*filters: {
         $and: [{
             date: {
               $gt: startDate
@@ -238,11 +238,11 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
           }
         ]
-      }
+      }*/
     });
     console.log(new Date() + "I've searched for the events");
     if (event != null && event.length > 0) {
-      console.log(event);
+      
 
       for (var i = 0; i < event.length; i++) {
 
@@ -319,8 +319,8 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
       consumer: {
 
-        key: env(CONSUMER_KEY),
-        secret: env(CONSUMER_KEY_SECRET)
+        key: process.env.CONSUMER_KEY,
+        secret: process.env.CONSUMER_KEY_SECRET
 
       },
 
@@ -334,9 +334,9 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
     const token = {
 
-      key: env(ACCESS_TOKEN),//'1555201215352504320-m8mrgpbn1GI17ej1YBInanDQTG7yVp',
+      key: process.env.ACCESS_TOKEN,
 
-      secret: env(ACCESS_TOKEN_SECRET)//'5VLtHB967vlEyPHLNtD4fm2iNVQJMG7q4Ie4bhDN0w3fA',
+      secret: process.env.ACCESS_TOKEN_SECRET
 
     };
 
@@ -393,7 +393,7 @@ function padLeadingZeros(num, size) {
 function delay(tweet) {
   console.log(new Date() + "now I'm in delay about to print the tweet: ");
   console.log(tweet);
-  //strapi.service('api::event.event').createTweet(tweet)
+  strapi.service('api::event.event').createTweet(tweet)
 }
 
 function formateDate(startDate, endDate) {
