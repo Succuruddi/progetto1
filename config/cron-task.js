@@ -1,5 +1,5 @@
 module.exports = {
-  '24,39 2,8,13,15,20 * * *': async ({
+  '29 2,8,14,20 * * *': async ({
     //'*/1,2 * * * *': async ({
     strapi, env
   }) => {
