@@ -22,7 +22,7 @@ const OAuth = require('oauth-1.0a');
 const {
   time
 } = require('console');
-const { env } = require('process');
+
 
 module.exports = createCoreService('api::event.event', ({
   strapi, env
@@ -292,12 +292,16 @@ integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52n
 
         if (tweet.length < 281) {
           console.log(new Date() + "I'm going to print the tweet with current time: ");
-          var delayBetweenTweet = 120000 + Math.floor(Math.random() * 60000);
+          var delayBetweenTweet =(i * 120000) + Math.floor(Math.random() * 60000);
           setTimeout(delay, delayBetweenTweet, tweet);
 
 
         } else {
-          console.log("error: tweet length maximum reached")
+          await strapi.entityService.create('api::errorslog.errorslog', 
+          {          data: {            
+            error: "maximum length reached",           
+             eventId: event[i].id,            
+             tweet: tweet,          }        });
         }
 
       }
