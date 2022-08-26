@@ -55,3 +55,21 @@ Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/
 ---
 
 <sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+
+
+##  Twitter auth 1.0
+
+1-First of all create a Twitter Developer Account, save the consumer key, and the api key.
+
+2-Get your auth 1.0 token by https://www.postman.com/twitter/workspace/twitter-s-public-workspace/request/241622-1189a956-d9a4-4f02-90eb-31ae62305621
+
+3- save your consumer key, access token(the step before) in the .env file
+
+ADVICE: if u don't want to get banned don't create too many posts with the same text
+
+##  CronJob 
+
+it is in the file: cron-task,  '29 2,8,14,20 * * *'
+
+the first field is for the minutes, second for the hours
+if u want to add more hour/minutes, u can simply add a comma and then the number that you wish
